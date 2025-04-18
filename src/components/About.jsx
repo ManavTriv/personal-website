@@ -1,4 +1,5 @@
 import React from "react";
+import { Smile } from "lucide-react";
 
 const About = () => {
   return (
@@ -12,6 +13,12 @@ const About = () => {
         <span className="underline decoration-indigo-300 underline-offset-4 hover:text-indigo-300 cursor-pointer transition-colors duration-300">
           the university of queensland
         </span>
+        . i have a passion for coding and building, as well as ui/ux design and
+        learning new things
+        <span className="inline-block align-middle ml-1 text-stone-800 hover:text-indigo-300 transition-colors duration-300">
+          <Smile size={16} />
+        </span>
+        .
       </p>
     </div>
   );
