@@ -7,95 +7,119 @@ const Background = () => {
     const canvas = canvasRef.current;
     const ctx = canvas.getContext("2d");
 
-    canvas.width = window.innerWidth;
-    canvas.height = window.innerHeight;
-
-    const TOTAL = 20;
-    const iconArray = [];
-
-    const svgString = `
-    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="#e0e7ff" viewBox="0 0 24 24">
-        <path d="M12 2C7.58 2 4 5.58 4 10v9c0 .55.45 1 1 1 .25 0 .49-.09.68-.26L8 18.41l2.32 2.33a1.003 1.003 0 001.36 0L14 18.41l2.32 2.33c.19.17.43.26.68.26.55 0 1-.45 1-1v-9c0-4.42-3.58-8-8-8zm-2 7c.55 0 1 .45 1 1s-.45 1-1 1-1-.45-1-1 .45-1 1-1zm4 0c.55 0 1 .45 1 1s-.45 1-1 1-1-.45-1-1 .45-1 1-1z"/>
-    </svg>
-    `;
-
-    const svgBlob = new Blob([svgString], { type: "image/svg+xml" });
-    const iconURL = URL.createObjectURL(svgBlob);
-    const iconImg = new Image();
-    iconImg.src = iconURL;
-
-    let mouseX = 0;
-
-    const handleMove = (e) => {
-      mouseX = (e.clientX || e.touches?.[0]?.clientX || 0) / window.innerWidth;
-    };
-
-    window.addEventListener("mousemove", handleMove);
-    window.addEventListener("touchmove", handleMove);
-    window.addEventListener("resize", () => {
+    const resizeCanvas = () => {
       canvas.width = window.innerWidth;
       canvas.height = window.innerHeight;
-    });
+    };
 
-    class Icon {
+    resizeCanvas();
+    window.addEventListener("resize", resizeCanvas);
+
+    const isMobile = window.innerWidth < 768;
+    const TOTAL = isMobile ? 6 : 12;
+    const blobSizeMultiplier = isMobile ? 0.6 : 1;
+
+    const blobs = [];
+
+    class Blob {
       constructor() {
-        this.reset();
+        this.x = Math.random() * canvas.width;
+        this.y = Math.random() * canvas.height;
+        this.radius = (60 + Math.random() * 40) * blobSizeMultiplier;
+        this.points = [];
+        this.numPoints = 12;
+
+        this.opacity = 0.22 + Math.random() * 0.07;
+        this.rotation = Math.random() * Math.PI * 2;
+
+        this.vx = (Math.random() - 0.5) * 0.9;
+        this.vy = (Math.random() - 0.5) * 0.9;
+
+        this.rotationSpeed = (Math.random() - 0.5) * 0.001;
+
+        for (let i = 0; i < this.numPoints; i++) {
+          const angle = (Math.PI * 2 * i) / this.numPoints;
+          this.points.push({
+            angle,
+            distance: this.radius + Math.random() * 30 - 15,
+            speed: (Math.random() - 0.5) * 0.5,
+          });
+        }
       }
 
-      reset() {
-        this.x = Math.random() * canvas.width;
-        this.y = Math.random() * canvas.height * 2 - canvas.height;
-        this.size = 20 + Math.random() * 10;
-        this.opacity = this.size / 30;
-        this.xSpeed = 1 + Math.random() * 1;
-        this.ySpeed = 1 + Math.random() * 1;
-        this.rotate = Math.random() * 360;
-        this.rotateSpeed = Math.random();
+      update() {
+        this.points.forEach((p) => {
+          p.distance += p.speed;
+          if (p.distance > this.radius + 30 || p.distance < this.radius - 30) {
+            p.speed *= -1;
+          }
+        });
+
+        this.x += this.vx;
+        this.y += this.vy;
+        this.rotation += this.rotationSpeed;
+
+        if (this.x < this.radius || this.x > canvas.width - this.radius) {
+          this.vx *= -1;
+        }
+        if (this.y < this.radius || this.y > canvas.height - this.radius) {
+          this.vy *= -1;
+        }
       }
 
       draw() {
-        if (this.y > canvas.height || this.x > canvas.width) {
-          this.reset();
-        }
         ctx.save();
-        ctx.globalAlpha = this.opacity;
         ctx.translate(this.x, this.y);
-        ctx.rotate((this.rotate * Math.PI) / 180);
-        ctx.drawImage(
-          iconImg,
-          -this.size / 2,
-          -this.size / 2,
-          this.size,
-          this.size
-        );
-        ctx.restore();
-      }
+        ctx.rotate(this.rotation);
+        ctx.beginPath();
 
-      animate() {
-        this.x += this.xSpeed + mouseX * 2;
-        this.y += this.ySpeed + mouseX * 1.5;
-        this.rotate += this.rotateSpeed;
-        this.draw();
+        for (let i = 0; i < this.numPoints; i++) {
+          const p1 = this.points[i];
+          const p2 = this.points[(i + 1) % this.numPoints];
+
+          const x1 = Math.cos(p1.angle) * p1.distance;
+          const y1 = Math.sin(p1.angle) * p1.distance;
+          const x2 = Math.cos(p2.angle) * p2.distance;
+          const y2 = Math.sin(p2.angle) * p2.distance;
+
+          const cpX = (x1 + x2) / 2;
+          const cpY = (y1 + y2) / 2;
+
+          if (i === 0) {
+            ctx.moveTo(x1, y1);
+          }
+
+          ctx.quadraticCurveTo(x1, y1, cpX, cpY);
+        }
+
+        ctx.closePath();
+
+        ctx.shadowBlur = 30;
+        ctx.shadowColor = `rgba(224, 231, 255, ${this.opacity})`;
+        ctx.fillStyle = `rgba(224, 231, 255, ${this.opacity})`;
+        ctx.fill();
+
+        ctx.restore();
       }
     }
 
-    iconImg.onload = () => {
-      for (let i = 0; i < TOTAL; i++) {
-        iconArray.push(new Icon());
-      }
+    for (let i = 0; i < TOTAL; i++) {
+      blobs.push(new Blob());
+    }
 
-      function render() {
-        ctx.clearRect(0, 0, canvas.width, canvas.height);
-        iconArray.forEach((icon) => icon.animate());
-        requestAnimationFrame(render);
-      }
-
-      render();
+    const animate = () => {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      blobs.forEach((blob) => {
+        blob.update();
+        blob.draw();
+      });
+      requestAnimationFrame(animate);
     };
 
+    animate();
+
     return () => {
-      window.removeEventListener("mousemove", handleMove);
-      window.removeEventListener("touchmove", handleMove);
+      window.removeEventListener("resize", resizeCanvas);
     };
   }, []);
 

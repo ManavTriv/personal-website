@@ -5,18 +5,18 @@ const navItems = [
   {
     label: "linkedin",
     icon: Linkedin,
-    link: "https://www.linkedin.com/in/your-profile",
+    link: "https://au.linkedin.com/in/manav-trivedi-691688296",
   },
   {
     label: "github",
     icon: Github,
-    link: "https://github.com/your-username",
+    link: "https://github.com/ManavTriv",
   },
   {
     label: "email",
     icon: Mail,
-    link: "mailto:your.email@example.com",
-  },
+    link: "mailto:trivedimanav2003@gmail.com",
+  },  
   {
     label: "resume",
     icon: FileText,

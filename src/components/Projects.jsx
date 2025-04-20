@@ -2,19 +2,19 @@ import React from "react";
 
 const projects = [
   {
-    name: "qsm-ci platform",
-    stack: "javascript, react, github actions, back4app",
-    link: "https://github.com/your-username/qsm-ci", // replace with real link
+    name: "spamoverflow",
+    stack: "python, aws, terraform, docker",
+    link: "https://github.com/ManavTriv/SpamOverflow",
+  },
+  {
+    name: "brewbucks coffee",
+    stack: "python, javascript, react, aws, terraform, docker",
+    link: "https://github.com/ManavTriv/Brewbucks-Coffee",
   },
   {
     name: "just the facts",
     stack: "python, javascript, react, flask, openai",
-    link: "https://github.com/your-username/just-the-facts",
-  },
-  {
-    name: "spamoverflow",
-    stack: "python, aws, terraform, docker",
-    link: "https://github.com/your-username/spamoverflow",
+    link: "https://github.com/ManavTriv/LLM-News-Curation",
   },
 ];
 

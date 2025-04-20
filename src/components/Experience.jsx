@@ -16,7 +16,7 @@ const experiences = [
   {
     role: "software developer",
     company: "QCC",
-    period: "sept 2024 to apr 2025",
+    period: "sept 2024 to feb 2025",
     stack: "javascript, python, react native, django",
   },
   {
