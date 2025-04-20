@@ -3,7 +3,7 @@ import { Smile } from "lucide-react";
 
 const About = () => {
   return (
-    <div className="flex flex-col space-y-3 w-full">
+    <div className="flex flex-col space-y-5 w-full">
       <h1 className="font-secondary text-sm sm:text-base md:text-md font-semibold text-indigo-300 tracking-wide">
         ABOUT ME
       </h1>
