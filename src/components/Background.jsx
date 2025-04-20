@@ -32,13 +32,15 @@ const Background = () => {
         this.opacity = 0.22 + Math.random() * 0.07;
         this.rotation = Math.random() * Math.PI * 2;
 
-        this.vx = (Math.random() - 0.5) * 0.9;
-        this.vy = (Math.random() - 0.5) * 0.9;
+        this.vx = (Math.random() - 0.5) * 1.3;
+        this.vy = (Math.random() - 0.5) * 1.3;        
 
         this.rotationSpeed = (Math.random() - 0.5) * 0.001;
 
         for (let i = 0; i < this.numPoints; i++) {
-          const angle = (Math.PI * 2 * i) / this.numPoints;
+          const angle =
+            (Math.PI * 2 * i) / this.numPoints +
+            (Math.random() - 0.5) * 0.1; 
           this.points.push({
             angle,
             distance: this.radius + Math.random() * 30 - 15,
@@ -94,7 +96,7 @@ const Background = () => {
 
         ctx.closePath();
 
-        ctx.shadowBlur = 30;
+        ctx.shadowBlur = isMobile ? 15 : 30;
         ctx.shadowColor = `rgba(224, 231, 255, ${this.opacity})`;
         ctx.fillStyle = `rgba(224, 231, 255, ${this.opacity})`;
         ctx.fill();
@@ -107,16 +109,23 @@ const Background = () => {
       blobs.push(new Blob());
     }
 
-    const animate = () => {
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
-      blobs.forEach((blob) => {
-        blob.update();
-        blob.draw();
-      });
+    let lastTime = 0;
+    const fps = 50;
+    const frameInterval = 1000 / fps;
+
+    const animate = (time) => {
+      if (time - lastTime >= frameInterval) {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        blobs.forEach((blob) => {
+          blob.update();
+          blob.draw();
+        });
+        lastTime = time;
+      }
       requestAnimationFrame(animate);
     };
 
-    animate();
+    requestAnimationFrame(animate);
 
     return () => {
       window.removeEventListener("resize", resizeCanvas);
