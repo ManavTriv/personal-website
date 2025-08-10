@@ -5,7 +5,7 @@ const experiences = [
     role: "cloud engineer",
     company: "ANZ",
     period: "apr 2025 to present",
-    stack: "gcp, aws",
+    stack: "gcp, terraform, codefresh",
   },
   {
     role: "cloud engineer intern",

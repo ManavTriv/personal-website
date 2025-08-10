@@ -2,6 +2,11 @@ import React from "react";
 
 const projects = [
   {
+    name: "qsm-ci platform",
+    stack: "javascript, react, github actions, back4app",
+    link: "https://github.com/ManavTriv/QSM-CI-Platform",
+  },
+  {
     name: "spamoverflow",
     stack: "python, aws, terraform, docker",
     link: "https://github.com/ManavTriv/SpamOverflow",
