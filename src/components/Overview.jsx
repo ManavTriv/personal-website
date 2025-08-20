@@ -1,4 +1,3 @@
-import React from "react";
 import { Mail, FileText, Linkedin, Github } from "lucide-react";
 
 const navItems = [
@@ -16,7 +15,7 @@ const navItems = [
     label: "email",
     icon: Mail,
     link: "mailto:trivedimanav2003@gmail.com",
-  },  
+  },
   {
     label: "resume",
     icon: FileText,
@@ -32,12 +31,12 @@ const Overview = () => {
       </p>
 
       <div className="flex flex-col gap-1 items-end text-right">
-        {navItems.map(({ label, icon: Icon, link }) => (
+        {navItems.map((item) => (
           <a
-            key={label}
-            href={link}
+            key={item.label}
+            href={item.link}
             target={
-              link.startsWith("mailto:") || link.startsWith("/")
+              item.link.startsWith("mailto:") || item.link.startsWith("/")
                 ? "_self"
                 : "_blank"
             }
@@ -45,9 +44,9 @@ const Overview = () => {
             className="flex items-center gap-2 group"
           >
             <p className="font-secondary text-sm sm:text-base md:text-md tracking-wide cursor-pointer text-stone-800 group-hover:text-indigo-300 transition-colors duration-300">
-              {label}
+              {item.label}
             </p>
-            <Icon className="text-stone-800 group-hover:text-indigo-300 transition-colors duration-300 w-4 h-4 sm:w-[18px] sm:h-[18px] md:w-5 md:h-5" />
+            <item.icon className="text-stone-800 group-hover:text-indigo-300 transition-colors duration-300 w-4 h-4 sm:w-[18px] sm:h-[18px] md:w-5 md:h-5" />
           </a>
         ))}
       </div>

@@ -1,4 +1,3 @@
-import React from "react";
 import "../styles/Home.css";
 import Background from "../components/Background";
 import Overview from "../components/Overview";
