@@ -10,6 +10,8 @@ const Background = () => {
     const ctx = canvas.getContext("2d");
     if (!ctx) return;
 
+    const blobs = [];
+
     let lastWidth = window.innerWidth;
     let lastHeight = window.innerHeight;
 
@@ -46,8 +48,6 @@ const Background = () => {
     const isMobile = window.innerWidth < 768;
     const TOTAL = isMobile ? 6 : 12;
     const blobSizeMultiplier = isMobile ? 0.6 : 1;
-
-    const blobs = [];
 
     class Blob {
       constructor() {
