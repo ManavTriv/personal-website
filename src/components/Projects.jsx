@@ -24,14 +24,14 @@ const projects = [
 
 const Projects = () => {
   return (
-    <div className="flex flex-col space-y-4 w-full">
+    <div className="flex flex-col space-y-5 w-full">
       <h1 className="font-secondary text-sm sm:text-base md:text-md font-semibold text-indigo-300 tracking-wide">
         PROJECTS
       </h1>
 
       {projects.map(({ name, stack, link, site }) => (
         <div key={name} className="flex flex-col space-y-1">
-          <div className="flex flex-col space-y-1 sm:flex-row sm:justify-between sm:items-center sm:space-y-0 gap-4">
+          <div className="flex flex-row justify-between items-center">
             <h2 className="font-secondary text-sm sm:text-base md:text-md text-stone-800 tracking-wide">
               {name}
             </h2>
