@@ -118,9 +118,18 @@ const Background = () => {
 
         ctx.closePath();
 
-        const blobR = Math.min(255, color.rgb.r + 59);
-        const blobG = Math.min(255, color.rgb.g + 51);
-        const blobB = Math.min(255, color.rgb.b + 3);
+        // Make blobs consistently 30% lighter than the text color
+        // This blends the color toward white (255) by 30%
+        const lightenFactor = 0.3;
+        const blobR = Math.round(
+          color.rgb.r + (255 - color.rgb.r) * lightenFactor
+        );
+        const blobG = Math.round(
+          color.rgb.g + (255 - color.rgb.g) * lightenFactor
+        );
+        const blobB = Math.round(
+          color.rgb.b + (255 - color.rgb.b) * lightenFactor
+        );
         ctx.shadowBlur = isMobile ? 15 : 30;
         ctx.shadowColor = `rgba(${blobR}, ${blobG}, ${blobB}, ${this.opacity})`;
         ctx.fillStyle = `rgba(${blobR}, ${blobG}, ${blobB}, ${this.opacity})`;

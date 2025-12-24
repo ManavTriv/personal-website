@@ -29,6 +29,24 @@ const Projects = () => {
   const { color } = useColor();
   const themeColor = `rgb(${color.rgb.r}, ${color.rgb.g}, ${color.rgb.b})`;
 
+  const Link = ({ href, children, site = false }) => (
+    <a
+      href={href}
+      target="_blank"
+      rel="noopener noreferrer"
+      className="font-secondary text-sm sm:text-base md:text-md text-stone-600 underline underline-offset-4 cursor-pointer transition-colors duration-300"
+      style={{ textDecorationColor: themeColor }}
+      onMouseEnter={(e) => {
+        e.target.style.color = themeColor;
+      }}
+      onMouseLeave={(e) => {
+        e.target.style.color = "";
+      }}
+    >
+      {children}
+    </a>
+  );
+
   return (
     <CollapsibleSection title="PROJECTS">
       <div className="flex flex-col space-y-3 w-full">
@@ -39,42 +57,8 @@ const Projects = () => {
                 {name}
               </h2>
               <div className="flex flex-row items-center gap-3">
-                {site && (
-                  <a
-                    href={site}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="font-secondary text-sm sm:text-base md:text-md text-stone-600 underline underline-offset-4 cursor-pointer transition-colors duration-300"
-                    style={{
-                      textDecorationColor: themeColor,
-                    }}
-                    onMouseEnter={(e) => {
-                      e.target.style.color = themeColor;
-                    }}
-                    onMouseLeave={(e) => {
-                      e.target.style.color = "";
-                    }}
-                  >
-                    site
-                  </a>
-                )}
-                <a
-                  href={link}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="font-secondary text-sm sm:text-base md:text-md text-stone-600 underline underline-offset-4 cursor-pointer transition-colors duration-300"
-                  style={{
-                    textDecorationColor: themeColor,
-                  }}
-                  onMouseEnter={(e) => {
-                    e.target.style.color = themeColor;
-                  }}
-                  onMouseLeave={(e) => {
-                    e.target.style.color = "";
-                  }}
-                >
-                  github
-                </a>
+                {site && <Link href={site}>site</Link>}
+                <Link href={link}>github</Link>
               </div>
             </div>
             <p className="font-secondary text-xs sm:text-sm md:text-base text-stone-400 tracking-wide">
