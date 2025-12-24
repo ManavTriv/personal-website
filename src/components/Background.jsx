@@ -21,20 +21,14 @@ const Background = () => {
 
       const scaleX = newWidth / lastWidth || 1;
       const scaleY = newHeight / lastHeight || 1;
-      const uniformScale = (scaleX + scaleY) / 2 || 1;
 
       canvas.width = newWidth;
       canvas.height = newHeight;
-
-      if (blobs.length) {
+.
+      if (blobs.length && (scaleX !== 1 || scaleY !== 1)) {
         blobs.forEach((blob) => {
           blob.x *= scaleX;
           blob.y *= scaleY;
-          blob.radius *= uniformScale;
-
-          blob.points.forEach((p) => {
-            p.distance *= uniformScale;
-          });
         });
       }
 
