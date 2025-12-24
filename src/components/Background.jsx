@@ -39,8 +39,7 @@ const Background = () => {
 
         for (let i = 0; i < this.numPoints; i++) {
           const angle =
-            (Math.PI * 2 * i) / this.numPoints +
-            (Math.random() - 0.5) * 0.1;
+            (Math.PI * 2 * i) / this.numPoints + (Math.random() - 0.5) * 0.1;
           this.points.push({
             angle,
             distance: this.radius + Math.random() * 30 - 15,

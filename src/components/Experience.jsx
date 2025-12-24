@@ -1,18 +1,18 @@
 const experiences = [
   {
-    role: "cloud engineer",
+    role: "graduate engineer",
     company: "ANZ",
-    period: "apr 2025 to present",
-    stack: "gcp, terraform, codefresh",
+    period: "feb 2026 to present",
+    stack: "",
   },
   {
     role: "cloud engineer intern",
     company: "ANZ",
-    period: "nov 2024 to apr 2025",
+    period: "nov 2024 to feb 2026",
     stack: "golang, python, gcp, aws, grafana, terraform, docker, codefresh",
   },
   {
-    role: "software developer",
+    role: "software engineer",
     company: "QCC",
     period: "sept 2024 to feb 2025",
     stack: "javascript, python, react native, django",
@@ -45,9 +45,11 @@ const Experience = () => {
               {period}
             </p>
           </div>
-          <p className="font-secondary text-xs sm:text-sm md:text-base text-stone-400 tracking-wide">
-            {stack}
-          </p>
+          {stack && (
+            <p className="font-secondary text-xs sm:text-sm md:text-base text-stone-400 tracking-wide">
+              {stack}
+            </p>
+          )}
         </div>
       ))}
     </div>
