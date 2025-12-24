@@ -1,3 +1,5 @@
+import CollapsibleSection from "./CollapsibleSection";
+
 const projects = [
   {
     name: "qsm-ci platform",
@@ -24,44 +26,42 @@ const projects = [
 
 const Projects = () => {
   return (
-    <div className="flex flex-col space-y-5 w-full">
-      <h1 className="font-secondary text-sm sm:text-base md:text-md font-semibold text-indigo-300 tracking-wide">
-        PROJECTS
-      </h1>
-
-      {projects.map(({ name, stack, link, site }) => (
-        <div key={name} className="flex flex-col space-y-1">
-          <div className="flex flex-row justify-between items-center">
-            <h2 className="font-secondary text-sm sm:text-base md:text-md text-stone-800 tracking-wide">
-              {name}
-            </h2>
-            <div className="flex flex-row items-center gap-3">
-              {site && (
+    <CollapsibleSection title="PROJECTS">
+      <div className="flex flex-col space-y-3 w-full">
+        {projects.map(({ name, stack, link, site }) => (
+          <div key={name} className="flex flex-col space-y-1">
+            <div className="flex flex-row justify-between items-center">
+              <h2 className="font-secondary text-sm sm:text-base md:text-md text-stone-800 tracking-wide">
+                {name}
+              </h2>
+              <div className="flex flex-row items-center gap-3">
+                {site && (
+                  <a
+                    href={site}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="font-secondary text-sm sm:text-base md:text-md text-stone-600 underline decoration-indigo-300 underline-offset-4 hover:text-indigo-300 cursor-pointer transition-colors duration-300"
+                  >
+                    site
+                  </a>
+                )}
                 <a
-                  href={site}
+                  href={link}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="font-secondary text-sm sm:text-base md:text-md text-stone-600 underline decoration-indigo-300 underline-offset-4 hover:text-indigo-300 cursor-pointer transition-colors duration-300"
                 >
-                  site
+                  github
                 </a>
-              )}
-              <a
-                href={link}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="font-secondary text-sm sm:text-base md:text-md text-stone-600 underline decoration-indigo-300 underline-offset-4 hover:text-indigo-300 cursor-pointer transition-colors duration-300"
-              >
-                github
-              </a>
+              </div>
             </div>
+            <p className="font-secondary text-xs sm:text-sm md:text-base text-stone-400 tracking-wide">
+              {stack}
+            </p>
           </div>
-          <p className="font-secondary text-xs sm:text-sm md:text-base text-stone-400 tracking-wide">
-            {stack}
-          </p>
-        </div>
-      ))}
-    </div>
+        ))}
+      </div>
+    </CollapsibleSection>
   );
 };
 
