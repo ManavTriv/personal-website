@@ -24,7 +24,6 @@ const Background = () => {
 
       canvas.width = newWidth;
       canvas.height = newHeight;
-.
       if (blobs.length && (scaleX !== 1 || scaleY !== 1)) {
         blobs.forEach((blob) => {
           blob.x *= scaleX;
@@ -54,10 +53,10 @@ const Background = () => {
         this.opacity = 0.18 + Math.random() * 0.06;
         this.rotation = Math.random() * Math.PI * 2;
 
-        this.vx = (Math.random() - 0.5) * 1.1;
-        this.vy = (Math.random() - 0.5) * 1.1;
+        this.vx = (Math.random() - 0.5) * 1.25;
+        this.vy = (Math.random() - 0.5) * 1.25;
 
-        this.rotationSpeed = (Math.random() - 0.5) * 0.0011;
+        this.rotationSpeed = (Math.random() - 0.5) * 0.0013;
 
         for (let i = 0; i < this.numPoints; i++) {
           const angle =
@@ -131,7 +130,7 @@ const Background = () => {
     }
 
     let lastTime = 0;
-    const fps = 45;
+    const fps = 50;
     const frameInterval = 1000 / fps;
     let animationFrameId;
 
