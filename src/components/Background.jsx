@@ -10,9 +10,34 @@ const Background = () => {
     const ctx = canvas.getContext("2d");
     if (!ctx) return;
 
+    let lastWidth = window.innerWidth;
+    let lastHeight = window.innerHeight;
+
     const resizeCanvas = () => {
-      canvas.width = window.innerWidth;
-      canvas.height = window.innerHeight;
+      const newWidth = window.innerWidth;
+      const newHeight = window.innerHeight;
+
+      const scaleX = newWidth / lastWidth || 1;
+      const scaleY = newHeight / lastHeight || 1;
+      const uniformScale = (scaleX + scaleY) / 2 || 1;
+
+      canvas.width = newWidth;
+      canvas.height = newHeight;
+
+      if (blobs.length) {
+        blobs.forEach((blob) => {
+          blob.x *= scaleX;
+          blob.y *= scaleY;
+          blob.radius *= uniformScale;
+
+          blob.points.forEach((p) => {
+            p.distance *= uniformScale;
+          });
+        });
+      }
+
+      lastWidth = newWidth;
+      lastHeight = newHeight;
     };
 
     resizeCanvas();
