@@ -3,6 +3,8 @@ import { useColor } from "../contexts/ColorContext";
 
 const Background = () => {
   const canvasRef = useRef(null);
+  const blobsRef = useRef([]);
+  const colorRef = useRef(null);
   const { color } = useColor();
 
   useEffect(() => {
@@ -11,8 +13,6 @@ const Background = () => {
 
     const ctx = canvas.getContext("2d");
     if (!ctx) return;
-
-    const blobs = [];
 
     let lastWidth = window.innerWidth;
     let lastHeight = window.innerHeight;
@@ -26,8 +26,8 @@ const Background = () => {
 
       canvas.width = newWidth;
       canvas.height = newHeight;
-      if (blobs.length && (scaleX !== 1 || scaleY !== 1)) {
-        blobs.forEach((blob) => {
+      if (blobsRef.current.length && (scaleX !== 1 || scaleY !== 1)) {
+        blobsRef.current.forEach((blob) => {
           blob.x *= scaleX;
           blob.y *= scaleY;
         });
@@ -91,7 +91,7 @@ const Background = () => {
         }
       }
 
-      draw() {
+      draw(currentColor) {
         ctx.save();
         ctx.translate(this.x, this.y);
         ctx.rotate(this.rotation);
@@ -118,17 +118,15 @@ const Background = () => {
 
         ctx.closePath();
 
-        // Make blobs consistently 30% lighter than the text color
-        // This blends the color toward white (255) by 30%
         const lightenFactor = 0.3;
         const blobR = Math.round(
-          color.rgb.r + (255 - color.rgb.r) * lightenFactor
+          currentColor.rgb.r + (255 - currentColor.rgb.r) * lightenFactor
         );
         const blobG = Math.round(
-          color.rgb.g + (255 - color.rgb.g) * lightenFactor
+          currentColor.rgb.g + (255 - currentColor.rgb.g) * lightenFactor
         );
         const blobB = Math.round(
-          color.rgb.b + (255 - color.rgb.b) * lightenFactor
+          currentColor.rgb.b + (255 - currentColor.rgb.b) * lightenFactor
         );
         ctx.shadowBlur = isMobile ? 15 : 30;
         ctx.shadowColor = `rgba(${blobR}, ${blobG}, ${blobB}, ${this.opacity})`;
@@ -139,9 +137,15 @@ const Background = () => {
       }
     }
 
-    for (let i = 0; i < TOTAL; i++) {
-      blobs.push(new Blob());
+    if (blobsRef.current.length === 0) {
+      const blobs = [];
+      for (let i = 0; i < TOTAL; i++) {
+        blobs.push(new Blob());
+      }
+      blobsRef.current = blobs;
     }
+
+    colorRef.current = color;
 
     let lastTime = 0;
     const fps = 50;
@@ -151,9 +155,9 @@ const Background = () => {
     const animate = (time) => {
       if (time - lastTime >= frameInterval) {
         ctx.clearRect(0, 0, canvas.width, canvas.height);
-        blobs.forEach((blob) => {
+        blobsRef.current.forEach((blob) => {
           blob.update();
-          blob.draw();
+          blob.draw(colorRef.current);
         });
         lastTime = time;
       }
@@ -168,6 +172,10 @@ const Background = () => {
         cancelAnimationFrame(animationFrameId);
       }
     };
+  }, []);
+
+  useEffect(() => {
+    colorRef.current = color;
   }, [color]);
 
   return (
