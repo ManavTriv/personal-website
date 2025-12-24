@@ -1,4 +1,5 @@
 import CollapsibleSection from "./CollapsibleSection";
+import { useColor } from "../contexts/ColorContext";
 
 const projects = [
   {
@@ -25,6 +26,9 @@ const projects = [
 ];
 
 const Projects = () => {
+  const { color } = useColor();
+  const themeColor = `rgb(${color.rgb.r}, ${color.rgb.g}, ${color.rgb.b})`;
+
   return (
     <CollapsibleSection title="PROJECTS">
       <div className="flex flex-col space-y-3 w-full">
@@ -40,7 +44,16 @@ const Projects = () => {
                     href={site}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="font-secondary text-sm sm:text-base md:text-md text-stone-600 underline decoration-indigo-300 underline-offset-4 hover:text-indigo-300 cursor-pointer transition-colors duration-300"
+                    className="font-secondary text-sm sm:text-base md:text-md text-stone-600 underline underline-offset-4 cursor-pointer transition-colors duration-300"
+                    style={{
+                      textDecorationColor: themeColor,
+                    }}
+                    onMouseEnter={(e) => {
+                      e.target.style.color = themeColor;
+                    }}
+                    onMouseLeave={(e) => {
+                      e.target.style.color = "";
+                    }}
                   >
                     site
                   </a>
@@ -49,7 +62,16 @@ const Projects = () => {
                   href={link}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="font-secondary text-sm sm:text-base md:text-md text-stone-600 underline decoration-indigo-300 underline-offset-4 hover:text-indigo-300 cursor-pointer transition-colors duration-300"
+                  className="font-secondary text-sm sm:text-base md:text-md text-stone-600 underline underline-offset-4 cursor-pointer transition-colors duration-300"
+                  style={{
+                    textDecorationColor: themeColor,
+                  }}
+                  onMouseEnter={(e) => {
+                    e.target.style.color = themeColor;
+                  }}
+                  onMouseLeave={(e) => {
+                    e.target.style.color = "";
+                  }}
                 >
                   github
                 </a>

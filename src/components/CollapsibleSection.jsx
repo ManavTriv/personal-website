@@ -1,8 +1,12 @@
 import { useState } from "react";
 import { ChevronDown } from "lucide-react";
+import { useColor } from "../contexts/ColorContext";
 
 const CollapsibleSection = ({ title, children, defaultOpen = true }) => {
   const [isOpen, setIsOpen] = useState(defaultOpen);
+  const { color } = useColor();
+  const themeColor = `rgb(${color.rgb.r}, ${color.rgb.g}, ${color.rgb.b})`;
+  const hoverColor = `rgba(${color.rgb.r}, ${color.rgb.g}, ${color.rgb.b}, 0.8)`;
 
   return (
     <section className="flex flex-col space-y-3 w-full">
@@ -11,13 +15,23 @@ const CollapsibleSection = ({ title, children, defaultOpen = true }) => {
         onClick={() => setIsOpen((prev) => !prev)}
         className="flex w-full items-center justify-between group"
       >
-        <h1 className="font-secondary text-sm sm:text-base md:text-md font-semibold text-indigo-300 tracking-wide group-hover:text-indigo-200 transition-colors duration-300 ease-out">
+        <h1
+          className="font-secondary text-sm sm:text-base md:text-md font-semibold tracking-wide transition-colors duration-300 ease-out"
+          style={{ color: themeColor }}
+          onMouseEnter={(e) => {
+            e.target.style.color = hoverColor;
+          }}
+          onMouseLeave={(e) => {
+            e.target.style.color = themeColor;
+          }}
+        >
           {title}
         </h1>
         <ChevronDown
-          className={`w-4 h-4 text-indigo-300 transition-transform duration-300 ease-out ${
+          className={`w-4 h-4 transition-transform duration-300 ease-out ${
             isOpen ? "rotate-180" : "rotate-0"
           }`}
+          style={{ color: themeColor }}
         />
       </button>
 

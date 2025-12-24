@@ -1,7 +1,9 @@
 import { useEffect, useRef } from "react";
+import { useColor } from "../contexts/ColorContext";
 
 const Background = () => {
   const canvasRef = useRef(null);
+  const { color } = useColor();
 
   useEffect(() => {
     const canvas = canvasRef.current;
@@ -116,9 +118,12 @@ const Background = () => {
 
         ctx.closePath();
 
+        const blobR = Math.min(255, color.rgb.r + 59);
+        const blobG = Math.min(255, color.rgb.g + 51);
+        const blobB = Math.min(255, color.rgb.b + 3);
         ctx.shadowBlur = isMobile ? 15 : 30;
-        ctx.shadowColor = `rgba(224, 231, 255, ${this.opacity})`;
-        ctx.fillStyle = `rgba(224, 231, 255, ${this.opacity})`;
+        ctx.shadowColor = `rgba(${blobR}, ${blobG}, ${blobB}, ${this.opacity})`;
+        ctx.fillStyle = `rgba(${blobR}, ${blobG}, ${blobB}, ${this.opacity})`;
         ctx.fill();
 
         ctx.restore();
@@ -154,7 +159,7 @@ const Background = () => {
         cancelAnimationFrame(animationFrameId);
       }
     };
-  }, []);
+  }, [color]);
 
   return (
     <canvas

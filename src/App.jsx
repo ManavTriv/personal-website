@@ -1,11 +1,14 @@
 import { BrowserRouter as Router } from "react-router-dom";
 import AppRouter from "./routes/AppRouter";
+import { ColorProvider } from "./contexts/ColorContext";
 
 function App() {
   return (
-    <Router>
-      <AppRouter />
-    </Router>
+    <ColorProvider>
+      <Router>
+        <AppRouter />
+      </Router>
+    </ColorProvider>
   );
 }
 
