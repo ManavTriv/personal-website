@@ -5,7 +5,10 @@ const Background = () => {
 
   useEffect(() => {
     const canvas = canvasRef.current;
+    if (!canvas) return;
+
     const ctx = canvas.getContext("2d");
+    if (!ctx) return;
 
     const resizeCanvas = () => {
       canvas.width = window.innerWidth;
@@ -29,13 +32,13 @@ const Background = () => {
         this.points = [];
         this.numPoints = 12;
 
-        this.opacity = 0.22 + Math.random() * 0.07;
+        this.opacity = 0.18 + Math.random() * 0.06;
         this.rotation = Math.random() * Math.PI * 2;
 
-        this.vx = (Math.random() - 0.5) * 1.3;
-        this.vy = (Math.random() - 0.5) * 1.3;
+        this.vx = (Math.random() - 0.5) * 1.1;
+        this.vy = (Math.random() - 0.5) * 1.1;
 
-        this.rotationSpeed = (Math.random() - 0.5) * 0.001;
+        this.rotationSpeed = (Math.random() - 0.5) * 0.0011;
 
         for (let i = 0; i < this.numPoints; i++) {
           const angle =
@@ -109,8 +112,9 @@ const Background = () => {
     }
 
     let lastTime = 0;
-    const fps = 50;
+    const fps = 45;
     const frameInterval = 1000 / fps;
+    let animationFrameId;
 
     const animate = (time) => {
       if (time - lastTime >= frameInterval) {
@@ -121,13 +125,16 @@ const Background = () => {
         });
         lastTime = time;
       }
-      requestAnimationFrame(animate);
+      animationFrameId = requestAnimationFrame(animate);
     };
 
-    requestAnimationFrame(animate);
+    animationFrameId = requestAnimationFrame(animate);
 
     return () => {
       window.removeEventListener("resize", resizeCanvas);
+      if (animationFrameId) {
+        cancelAnimationFrame(animationFrameId);
+      }
     };
   }, []);
 
