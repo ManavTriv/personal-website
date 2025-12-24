@@ -29,9 +29,11 @@ const navItems = [
 ];
 
 const Overview = () => {
-  const { color, randomizeColor } = useColor();
+  const { color, randomizeColor, theme, toggleTheme } = useColor();
   const themeColor = `rgb(${color.rgb.r}, ${color.rgb.g}, ${color.rgb.b})`;
   const stone800 = "rgb(41, 37, 36)";
+  const stone200 = "rgb(231, 229, 228)";
+  const defaultTextColor = theme === "dark" ? stone200 : stone800;
 
   const handleIconMouseEnter = (e) => {
     const children = e.currentTarget.children;
@@ -43,7 +45,7 @@ const Overview = () => {
   const handleIconMouseLeave = (e) => {
     const children = e.currentTarget.children;
     for (let i = 0; i < children.length; i++) {
-      children[i].style.color = stone800;
+      children[i].style.color = defaultTextColor;
     }
   };
 
@@ -52,7 +54,7 @@ const Overview = () => {
   };
 
   const handleNameMouseLeave = (e) => {
-    e.target.style.color = stone800;
+    e.target.style.color = defaultTextColor;
   };
 
   const handleButtonMouseEnter = (e) => {
@@ -64,8 +66,7 @@ const Overview = () => {
   };
 
   const iconSizeClasses = "w-4 h-4 sm:w-[18px] sm:h-[18px] md:w-5 md:h-5";
-  const textClasses =
-    "font-secondary tracking-wide cursor-pointer text-stone-800 transition-colors duration-300";
+  const textClasses = "font-secondary tracking-wide cursor-pointer";
 
   return (
     <div className="flex flex-row justify-between items-start w-full">
@@ -74,12 +75,22 @@ const Overview = () => {
           className={`${textClasses} text-lg`}
           onMouseEnter={handleNameMouseEnter}
           onMouseLeave={handleNameMouseLeave}
+          style={{ color: defaultTextColor }}
         >
           manav trivedi
         </p>
         <button
+          onClick={toggleTheme}
+          className="font-secondary text-xs sm:text-sm tracking-wide cursor-pointer text-left"
+          style={{ color: themeColor }}
+          onMouseEnter={handleButtonMouseEnter}
+          onMouseLeave={handleButtonMouseLeave}
+        >
+          {theme === "dark" ? "light mode" : "dark mode"}
+        </button>
+        <button
           onClick={randomizeColor}
-          className="font-secondary text-xs sm:text-sm tracking-wide cursor-pointer transition-colors duration-300 text-left mt-1"
+          className="font-secondary text-xs sm:text-sm tracking-wide cursor-pointer text-left mt-1"
           style={{ color: themeColor }}
           onMouseEnter={handleButtonMouseEnter}
           onMouseLeave={handleButtonMouseLeave}
@@ -99,10 +110,16 @@ const Overview = () => {
             onMouseEnter={handleIconMouseEnter}
             onMouseLeave={handleIconMouseLeave}
           >
-            <p className={`${textClasses} text-sm sm:text-base md:text-md`}>
+            <p
+              className={`${textClasses} text-sm sm:text-base md:text-md`}
+              style={{ color: defaultTextColor }}
+            >
               {label}
             </p>
-            <Icon className={`${iconSizeClasses} ${textClasses}`} />
+            <Icon
+              className={`${iconSizeClasses} ${textClasses}`}
+              style={{ color: defaultTextColor }}
+            />
           </a>
         ))}
       </div>

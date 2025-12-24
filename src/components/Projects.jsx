@@ -26,21 +26,30 @@ const projects = [
 ];
 
 const Projects = () => {
-  const { color } = useColor();
+  const { color, theme } = useColor();
   const themeColor = `rgb(${color.rgb.r}, ${color.rgb.g}, ${color.rgb.b})`;
+  const defaultTextColor =
+    theme === "dark" ? "rgb(231, 229, 228)" : "rgb(41, 37, 36)";
+  const defaultLinkColor =
+    theme === "dark" ? "rgb(214, 211, 209)" : "rgb(87, 83, 78)";
+  const secondaryTextColor =
+    theme === "dark" ? "rgb(168, 162, 158)" : "rgb(120, 113, 108)";
 
   const Link = ({ href, children, site = false }) => (
     <a
       href={href}
       target="_blank"
       rel="noopener noreferrer"
-      className="font-secondary text-sm sm:text-base md:text-md text-stone-600 underline underline-offset-4 cursor-pointer transition-colors duration-300"
-      style={{ textDecorationColor: themeColor }}
+      className="font-secondary text-sm sm:text-base md:text-md underline underline-offset-4 cursor-pointer"
+      style={{
+        textDecorationColor: themeColor,
+        color: defaultLinkColor,
+      }}
       onMouseEnter={(e) => {
         e.target.style.color = themeColor;
       }}
       onMouseLeave={(e) => {
-        e.target.style.color = "";
+        e.target.style.color = defaultLinkColor;
       }}
     >
       {children}
@@ -53,7 +62,10 @@ const Projects = () => {
         {projects.map(({ name, stack, link, site }) => (
           <div key={name} className="flex flex-col space-y-1">
             <div className="flex flex-row justify-between items-center">
-              <h2 className="font-secondary text-sm sm:text-base md:text-md text-stone-800 tracking-wide">
+              <h2
+                className="font-secondary text-sm sm:text-base md:text-md tracking-wide"
+                style={{ color: defaultTextColor }}
+              >
                 {name}
               </h2>
               <div className="flex flex-row items-center gap-3">
@@ -61,7 +73,10 @@ const Projects = () => {
                 <Link href={link}>github</Link>
               </div>
             </div>
-            <p className="font-secondary text-xs sm:text-sm md:text-base text-stone-400 tracking-wide">
+            <p
+              className="font-secondary text-xs sm:text-sm md:text-base tracking-wide"
+              style={{ color: secondaryTextColor }}
+            >
               {stack}
             </p>
           </div>

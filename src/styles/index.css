@@ -3,3 +3,18 @@
 @theme {
   --font-secondary: "Radio Canada", sans-serif;
 }
+
+.dark {
+  color-scheme: dark;
+}
+
+.dark body {
+  background-color: rgb(28, 25, 23);
+  color: rgb(231, 229, 228);
+}
+
+body {
+  background-color: rgb(255, 255, 255);
+  color: rgb(41, 37, 36);
+  transition: background-color 0.3s ease, color 0.3s ease;
+}

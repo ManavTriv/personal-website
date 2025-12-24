@@ -1,4 +1,10 @@
-import { createContext, useContext, useState, useCallback } from "react";
+import {
+  createContext,
+  useContext,
+  useState,
+  useCallback,
+  useEffect,
+} from "react";
 
 const ColorContext = createContext();
 
@@ -24,6 +30,20 @@ const DEFAULT_COLOR = COLOR_PALETTE[0];
 
 export const ColorProvider = ({ children }) => {
   const [color, setColor] = useState(DEFAULT_COLOR);
+  const [theme, setTheme] = useState("light");
+
+  useEffect(() => {
+    document.documentElement.setAttribute("data-theme", theme);
+    if (theme === "dark") {
+      document.documentElement.classList.add("dark");
+    } else {
+      document.documentElement.classList.remove("dark");
+    }
+  }, [theme]);
+
+  const toggleTheme = useCallback(() => {
+    setTheme((prev) => (prev === "light" ? "dark" : "light"));
+  }, []);
 
   const randomizeColor = useCallback(() => {
     const otherColors = COLOR_PALETTE.filter((c) => c.name !== color.name);
@@ -33,7 +53,9 @@ export const ColorProvider = ({ children }) => {
   }, [color.name]);
 
   return (
-    <ColorContext.Provider value={{ color, randomizeColor }}>
+    <ColorContext.Provider
+      value={{ color, randomizeColor, theme, toggleTheme }}
+    >
       {children}
     </ColorContext.Provider>
   );
