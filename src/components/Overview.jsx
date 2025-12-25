@@ -65,6 +65,30 @@ const Overview = () => {
     e.target.style.opacity = "1";
   };
 
+  const handleButtonTouchStart = (e) => {
+    e.target.style.opacity = "0.8";
+  };
+
+  const handleButtonTouchEnd = (e) => {
+    e.target.style.opacity = "1";
+  };
+
+  const handleButtonTouchCancel = (e) => {
+    e.target.style.opacity = "1";
+  };
+
+  const handleNameTouchStart = (e) => {
+    e.target.style.color = themeColor;
+  };
+
+  const handleNameTouchEnd = (e) => {
+    e.target.style.color = defaultTextColor;
+  };
+
+  const handleNameTouchCancel = (e) => {
+    e.target.style.color = defaultTextColor;
+  };
+
   const iconSizeClasses = "w-4 h-4 sm:w-[18px] sm:h-[18px] md:w-5 md:h-5";
   const textClasses = "font-secondary tracking-wide cursor-pointer";
 
@@ -75,6 +99,9 @@ const Overview = () => {
           className={`${textClasses} text-lg`}
           onMouseEnter={handleNameMouseEnter}
           onMouseLeave={handleNameMouseLeave}
+          onTouchStart={handleNameTouchStart}
+          onTouchEnd={handleNameTouchEnd}
+          onTouchCancel={handleNameTouchCancel}
           style={{ color: defaultTextColor }}
         >
           manav trivedi
@@ -85,6 +112,9 @@ const Overview = () => {
           style={{ color: themeColor }}
           onMouseEnter={handleButtonMouseEnter}
           onMouseLeave={handleButtonMouseLeave}
+          onTouchStart={handleButtonTouchStart}
+          onTouchEnd={handleButtonTouchEnd}
+          onTouchCancel={handleButtonTouchCancel}
         >
           {theme === "dark" ? "light mode" : "dark mode"}
         </button>
@@ -94,6 +124,9 @@ const Overview = () => {
           style={{ color: themeColor }}
           onMouseEnter={handleButtonMouseEnter}
           onMouseLeave={handleButtonMouseLeave}
+          onTouchStart={handleButtonTouchStart}
+          onTouchEnd={handleButtonTouchEnd}
+          onTouchCancel={handleButtonTouchCancel}
         >
           randomise colour
         </button>

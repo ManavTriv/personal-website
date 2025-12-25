@@ -46,8 +46,6 @@ const About = () => {
         >
           the university of queensland
         </span>
-        . i have an interest in building meaningful tools and applications, as
-        well as ui/ux design
         <span
           className="inline-block align-middle ml-1"
           style={{ color: defaultTextColor }}
