@@ -70,11 +70,15 @@ const Overview = () => {
   };
 
   const handleButtonTouchEnd = (e) => {
-    e.target.style.opacity = "1";
+    setTimeout(() => {
+      e.target.style.opacity = "1";
+    }, 150);
   };
 
   const handleButtonTouchCancel = (e) => {
-    e.target.style.opacity = "1";
+    setTimeout(() => {
+      e.target.style.opacity = "1";
+    }, 150);
   };
 
   const handleNameTouchStart = (e) => {
@@ -82,11 +86,15 @@ const Overview = () => {
   };
 
   const handleNameTouchEnd = (e) => {
-    e.target.style.color = defaultTextColor;
+    setTimeout(() => {
+      e.target.style.color = defaultTextColor;
+    }, 150);
   };
 
   const handleNameTouchCancel = (e) => {
-    e.target.style.color = defaultTextColor;
+    setTimeout(() => {
+      e.target.style.color = defaultTextColor;
+    }, 150);
   };
 
   const iconSizeClasses = "w-4 h-4 sm:w-[18px] sm:h-[18px] md:w-5 md:h-5";
