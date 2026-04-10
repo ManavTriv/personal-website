@@ -26,42 +26,24 @@ const navItems = [
 
 const separators = ["//", "*", "---", "~", "//"];
 
-const asciiFrames = [
-  `  /\\_/\\
- ( o.o )
-  > ^ <  `,
-  `  /\\_/\\
- ( -.- )
-  > ^ <  `,
-  `  /\\_/\\
- ( ^.^ )
-  > ^ <  `,
-  `  /\\_/\\
- ( o.o )
-  > ~ <  `,
-];
+const cat = [
+  "   |\\      _,,,---,,_",
+  "   /,`.-'`'    -.  ;-;;,_",
+  "  |,4-  ) )-,_..;\\ (  `'-'",
+  " '---''(_/--'  `-'\\_)",
+].join("\n");
 
 const Overview = () => {
   const { theme, toggleTheme } = useColor();
-  const [frame, setFrame] = useState(0);
   const [cursorVisible, setCursorVisible] = useState(true);
 
   useEffect(() => {
-    const id = setInterval(() => {
-      setFrame((prev) => (prev + 1) % asciiFrames.length);
-    }, 600);
-    return () => clearInterval(id);
-  }, []);
-
-  useEffect(() => {
-    const id = setInterval(() => {
-      setCursorVisible((prev) => !prev);
-    }, 530);
+    const id = setInterval(() => setCursorVisible((prev) => !prev), 530);
     return () => clearInterval(id);
   }, []);
 
   return (
-    <div className="flex flex-row justify-between items-center w-full">
+    <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center w-full gap-4 sm:gap-0">
       <div className="flex flex-col gap-1">
         <p className="font-secondary text-sm sm:text-base font-semibold tracking-wide text-accent hover:opacity-80 cursor-pointer">
           MANAV{" "}
@@ -109,8 +91,8 @@ const Overview = () => {
         </div>
       </div>
 
-      <pre className="font-mono text-xs leading-tight text-stone-400 dark:text-stone-500 select-none text-right">
-        {asciiFrames[frame]}
+      <pre className="font-mono text-xs leading-tight text-stone-400 dark:text-stone-500 select-none">
+        {cat}
       </pre>
     </div>
   );
