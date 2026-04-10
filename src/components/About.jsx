@@ -8,12 +8,12 @@ const About = () => (
       <span className="underline underline-offset-4 decoration-accent hover:text-accent cursor-pointer">
         ANZ
       </span>
-      . I recently completed my degrees in engineering and economics at{" "}
+      . i recently completed my degrees in engineering and economics at{" "}
       <span className="underline underline-offset-4 decoration-accent hover:text-accent cursor-pointer">
         the university of queensland
       </span>
-      <span className="inline-block align-middle ml-1 hover:text-accent cursor-pointer">
-        <Smile size={16} />
+      <span className="inline-block align-middle ml-1">
+        <Smile className="w-4 h-4" />
       </span>
       .
     </p>

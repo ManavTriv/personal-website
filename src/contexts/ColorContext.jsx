@@ -12,7 +12,11 @@ export const useColor = () => useContext(ColorContext);
 export const color = { rgb: { r: 165, g: 180, b: 252 } };
 
 export const ColorProvider = ({ children }) => {
-  const [theme, setTheme] = useState("light");
+  const [theme, setTheme] = useState(() =>
+    window.matchMedia("(prefers-color-scheme: dark)").matches
+      ? "dark"
+      : "light",
+  );
 
   useEffect(() => {
     document.documentElement.setAttribute("data-theme", theme);
