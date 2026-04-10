@@ -1,5 +1,4 @@
 import { useState } from "react";
-import { ChevronDown } from "lucide-react";
 
 const CollapsibleSection = ({ title, children, defaultOpen = true }) => {
   const [isOpen, setIsOpen] = useState(defaultOpen);
@@ -14,9 +13,9 @@ const CollapsibleSection = ({ title, children, defaultOpen = true }) => {
         <h1 className="font-secondary text-sm sm:text-base font-semibold tracking-wide text-accent hover:opacity-80">
           {title}
         </h1>
-        <ChevronDown
-          className={`w-4 h-4 text-accent transition-transform duration-300 ease-out ${isOpen ? "rotate-180" : "rotate-0"}`}
-        />
+        <span className="text-accent text-lg leading-none font-bold hover:opacity-80">
+          {isOpen ? "−" : "+"}
+        </span>
       </button>
 
       <div
