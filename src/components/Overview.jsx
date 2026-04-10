@@ -24,7 +24,7 @@ const navItems = [
   { label: "resume", icon: FileText, link: "/resume.pdf", target: "_self" },
 ];
 
-const separators = ["//", "*", "---", "~"];
+const separators = ["//", "*", "---", "~", "//"];
 
 const asciiFrames = [
   `  /\\_/\\
@@ -48,15 +48,15 @@ const Overview = () => {
 
   useEffect(() => {
     const id = setInterval(() => {
-      setCursorVisible((prev) => !prev);
-    }, 530);
+      setFrame((prev) => (prev + 1) % asciiFrames.length);
+    }, 600);
     return () => clearInterval(id);
   }, []);
 
   useEffect(() => {
     const id = setInterval(() => {
-      setFrame((prev) => (prev + 1) % asciiFrames.length);
-    }, 600);
+      setCursorVisible((prev) => !prev);
+    }, 530);
     return () => clearInterval(id);
   }, []);
 
@@ -78,7 +78,7 @@ const Overview = () => {
             <div key={label} className="flex items-center gap-1.5">
               {i > 0 && (
                 <span className="font-mono text-xs text-stone-400 dark:text-stone-500 select-none">
-                  {separators[(i - 1) % separators.length]}
+                  {separators[i - 1]}
                 </span>
               )}
               <a
@@ -92,25 +92,26 @@ const Overview = () => {
               </a>
             </div>
           ))}
+          <span className="font-mono text-xs text-stone-400 dark:text-stone-500 select-none">
+            {separators[separators.length - 1]}
+          </span>
+          <button
+            onClick={toggleTheme}
+            className="text-stone-800 dark:text-stone-200 hover:text-accent cursor-pointer"
+            aria-label="toggle theme"
+          >
+            {theme === "dark" ? (
+              <Sun className="w-4 h-4" />
+            ) : (
+              <Moon className="w-4 h-4" />
+            )}
+          </button>
         </div>
       </div>
 
-      <div className="flex flex-col items-end gap-1">
-        <button
-          onClick={toggleTheme}
-          className="text-stone-400 dark:text-stone-500 hover:text-accent cursor-pointer"
-          aria-label="toggle theme"
-        >
-          {theme === "dark" ? (
-            <Sun className="w-4 h-4" />
-          ) : (
-            <Moon className="w-4 h-4" />
-          )}
-        </button>
-        <pre className="font-mono text-xs leading-tight text-stone-400 dark:text-stone-500 select-none text-right">
-          {asciiFrames[frame]}
-        </pre>
-      </div>
+      <pre className="font-mono text-xs leading-tight text-stone-400 dark:text-stone-500 select-none text-right">
+        {asciiFrames[frame]}
+      </pre>
     </div>
   );
 };
