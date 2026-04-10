@@ -1,7 +1,10 @@
 @import "tailwindcss";
 
+@custom-variant dark (&:where(.dark, .dark *));
+
 @theme {
   --font-secondary: "Radio Canada", sans-serif;
+  --color-accent: rgb(165, 180, 252);
 }
 
 .dark {
@@ -16,5 +19,7 @@
 body {
   background-color: rgb(255, 255, 255);
   color: rgb(41, 37, 36);
-  transition: background-color 0.3s ease, color 0.3s ease;
+  transition:
+    background-color 0.3s ease,
+    color 0.3s ease;
 }

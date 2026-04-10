@@ -1,16 +1,20 @@
 import { useEffect, useRef } from "react";
-import { useColor } from "../contexts/ColorContext";
+import { color } from "../contexts/ColorContext";
+
+const lightenFactor = 0.3;
+const blobColor = {
+  r: Math.round(color.rgb.r + (255 - color.rgb.r) * lightenFactor),
+  g: Math.round(color.rgb.g + (255 - color.rgb.g) * lightenFactor),
+  b: Math.round(color.rgb.b + (255 - color.rgb.b) * lightenFactor),
+};
 
 const Background = () => {
   const canvasRef = useRef(null);
   const blobsRef = useRef([]);
-  const colorRef = useRef(null);
-  const { color } = useColor();
 
   useEffect(() => {
     const canvas = canvasRef.current;
     if (!canvas) return;
-
     const ctx = canvas.getContext("2d");
     if (!ctx) return;
 
@@ -20,10 +24,8 @@ const Background = () => {
     const resizeCanvas = () => {
       const newWidth = window.innerWidth;
       const newHeight = window.innerHeight;
-
       const scaleX = newWidth / lastWidth || 1;
       const scaleY = newHeight / lastHeight || 1;
-
       canvas.width = newWidth;
       canvas.height = newHeight;
       if (blobsRef.current.length && (scaleX !== 1 || scaleY !== 1)) {
@@ -32,7 +34,6 @@ const Background = () => {
           blob.y *= scaleY;
         });
       }
-
       lastWidth = newWidth;
       lastHeight = newHeight;
     };
@@ -49,107 +50,66 @@ const Background = () => {
         this.x = Math.random() * canvas.width;
         this.y = Math.random() * canvas.height;
         this.radius = (60 + Math.random() * 40) * blobSizeMultiplier;
-        this.points = [];
-        this.numPoints = 12;
-
         this.opacity = 0.18 + Math.random() * 0.06;
         this.rotation = Math.random() * Math.PI * 2;
-
         this.vx = (Math.random() - 0.5) * 1.25;
         this.vy = (Math.random() - 0.5) * 1.25;
-
         this.rotationSpeed = (Math.random() - 0.5) * 0.0013;
-
-        for (let i = 0; i < this.numPoints; i++) {
-          const angle =
-            (Math.PI * 2 * i) / this.numPoints + (Math.random() - 0.5) * 0.1;
-          this.points.push({
-            angle,
-            distance: this.radius + Math.random() * 30 - 15,
-            speed: (Math.random() - 0.5) * 0.5,
-          });
-        }
+        this.numPoints = 12;
+        this.points = Array.from({ length: this.numPoints }, (_, i) => ({
+          angle:
+            (Math.PI * 2 * i) / this.numPoints + (Math.random() - 0.5) * 0.1,
+          distance: this.radius + Math.random() * 30 - 15,
+          speed: (Math.random() - 0.5) * 0.5,
+        }));
       }
 
       update() {
         this.points.forEach((p) => {
           p.distance += p.speed;
-          if (p.distance > this.radius + 30 || p.distance < this.radius - 30) {
+          if (p.distance > this.radius + 30 || p.distance < this.radius - 30)
             p.speed *= -1;
-          }
         });
-
         this.x += this.vx;
         this.y += this.vy;
         this.rotation += this.rotationSpeed;
-
-        if (this.x < this.radius || this.x > canvas.width - this.radius) {
+        if (this.x < this.radius || this.x > canvas.width - this.radius)
           this.vx *= -1;
-        }
-        if (this.y < this.radius || this.y > canvas.height - this.radius) {
+        if (this.y < this.radius || this.y > canvas.height - this.radius)
           this.vy *= -1;
-        }
       }
 
-      draw(currentColor) {
+      draw() {
         ctx.save();
         ctx.translate(this.x, this.y);
         ctx.rotate(this.rotation);
         ctx.beginPath();
-
         for (let i = 0; i < this.numPoints; i++) {
           const p1 = this.points[i];
           const p2 = this.points[(i + 1) % this.numPoints];
-
           const x1 = Math.cos(p1.angle) * p1.distance;
           const y1 = Math.sin(p1.angle) * p1.distance;
           const x2 = Math.cos(p2.angle) * p2.distance;
           const y2 = Math.sin(p2.angle) * p2.distance;
-
-          const cpX = (x1 + x2) / 2;
-          const cpY = (y1 + y2) / 2;
-
-          if (i === 0) {
-            ctx.moveTo(x1, y1);
-          }
-
-          ctx.quadraticCurveTo(x1, y1, cpX, cpY);
+          if (i === 0) ctx.moveTo(x1, y1);
+          ctx.quadraticCurveTo(x1, y1, (x1 + x2) / 2, (y1 + y2) / 2);
         }
-
         ctx.closePath();
-
-        const lightenFactor = 0.3;
-        const blobR = Math.round(
-          currentColor.rgb.r + (255 - currentColor.rgb.r) * lightenFactor
-        );
-        const blobG = Math.round(
-          currentColor.rgb.g + (255 - currentColor.rgb.g) * lightenFactor
-        );
-        const blobB = Math.round(
-          currentColor.rgb.b + (255 - currentColor.rgb.b) * lightenFactor
-        );
+        const fill = `rgba(${blobColor.r}, ${blobColor.g}, ${blobColor.b}, ${this.opacity})`;
         ctx.shadowBlur = isMobile ? 15 : 30;
-        ctx.shadowColor = `rgba(${blobR}, ${blobG}, ${blobB}, ${this.opacity})`;
-        ctx.fillStyle = `rgba(${blobR}, ${blobG}, ${blobB}, ${this.opacity})`;
+        ctx.shadowColor = fill;
+        ctx.fillStyle = fill;
         ctx.fill();
-
         ctx.restore();
       }
     }
 
     if (blobsRef.current.length === 0) {
-      const blobs = [];
-      for (let i = 0; i < TOTAL; i++) {
-        blobs.push(new Blob());
-      }
-      blobsRef.current = blobs;
+      blobsRef.current = Array.from({ length: TOTAL }, () => new Blob());
     }
 
-    colorRef.current = color;
-
     let lastTime = 0;
-    const fps = 50;
-    const frameInterval = 1000 / fps;
+    const frameInterval = 1000 / 50;
     let animationFrameId;
 
     const animate = (time) => {
@@ -157,7 +117,7 @@ const Background = () => {
         ctx.clearRect(0, 0, canvas.width, canvas.height);
         blobsRef.current.forEach((blob) => {
           blob.update();
-          blob.draw(colorRef.current);
+          blob.draw();
         });
         lastTime = time;
       }
@@ -168,15 +128,9 @@ const Background = () => {
 
     return () => {
       window.removeEventListener("resize", resizeCanvas);
-      if (animationFrameId) {
-        cancelAnimationFrame(animationFrameId);
-      }
+      cancelAnimationFrame(animationFrameId);
     };
   }, []);
-
-  useEffect(() => {
-    colorRef.current = color;
-  }, [color]);
 
   return (
     <canvas

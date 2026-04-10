@@ -1,5 +1,4 @@
 import CollapsibleSection from "./CollapsibleSection";
-import { useColor } from "../contexts/ColorContext";
 
 const projects = [
   {
@@ -25,65 +24,38 @@ const projects = [
   },
 ];
 
-const Projects = () => {
-  const { color, theme } = useColor();
-  const themeColor = `rgb(${color.rgb.r}, ${color.rgb.g}, ${color.rgb.b})`;
-  const defaultTextColor =
-    theme === "dark" ? "rgb(231, 229, 228)" : "rgb(41, 37, 36)";
-  const defaultLinkColor =
-    theme === "dark" ? "rgb(214, 211, 209)" : "rgb(87, 83, 78)";
-  const secondaryTextColor =
-    theme === "dark" ? "rgb(168, 162, 158)" : "rgb(120, 113, 108)";
+const ExternalLink = ({ href, children }) => (
+  <a
+    href={href}
+    target="_blank"
+    rel="noopener noreferrer"
+    className="font-secondary text-sm sm:text-base underline underline-offset-4 decoration-accent text-stone-600 dark:text-stone-300 hover:text-accent"
+  >
+    {children}
+  </a>
+);
 
-  const Link = ({ href, children, site = false }) => (
-    <a
-      href={href}
-      target="_blank"
-      rel="noopener noreferrer"
-      className="font-secondary text-sm sm:text-base md:text-md underline underline-offset-4 cursor-pointer"
-      style={{
-        textDecorationColor: themeColor,
-        color: defaultLinkColor,
-      }}
-      onMouseEnter={(e) => {
-        e.target.style.color = themeColor;
-      }}
-      onMouseLeave={(e) => {
-        e.target.style.color = defaultLinkColor;
-      }}
-    >
-      {children}
-    </a>
-  );
-
-  return (
-    <CollapsibleSection title="PROJECTS">
-      <div className="flex flex-col space-y-3 w-full">
-        {projects.map(({ name, stack, link, site }) => (
-          <div key={name} className="flex flex-col space-y-1">
-            <div className="flex flex-row justify-between items-center">
-              <h2
-                className="font-secondary text-sm sm:text-base md:text-md tracking-wide"
-                style={{ color: defaultTextColor }}
-              >
-                {name}
-              </h2>
-              <div className="flex flex-row items-center gap-3">
-                {site && <Link href={site}>site</Link>}
-                <Link href={link}>github</Link>
-              </div>
+const Projects = () => (
+  <CollapsibleSection title="PROJECTS">
+    <div className="flex flex-col space-y-3 w-full">
+      {projects.map(({ name, stack, link, site }) => (
+        <div key={name} className="flex flex-col space-y-1">
+          <div className="flex flex-row justify-between items-center">
+            <h2 className="font-secondary text-sm sm:text-base tracking-wide text-stone-800 dark:text-stone-200">
+              {name}
+            </h2>
+            <div className="flex flex-row items-center gap-3">
+              {site && <ExternalLink href={site}>site</ExternalLink>}
+              <ExternalLink href={link}>github</ExternalLink>
             </div>
-            <p
-              className="font-secondary text-xs sm:text-sm md:text-base tracking-wide"
-              style={{ color: secondaryTextColor }}
-            >
-              {stack}
-            </p>
           </div>
-        ))}
-      </div>
-    </CollapsibleSection>
-  );
-};
+          <p className="font-secondary text-xs sm:text-sm tracking-wide text-stone-500 dark:text-stone-400">
+            {stack}
+          </p>
+        </div>
+      ))}
+    </div>
+  </CollapsibleSection>
+);
 
 export default Projects;
