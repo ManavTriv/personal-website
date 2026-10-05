@@ -1,4 +1,4 @@
-import CollapsibleSection from "./CollapsibleSection";
+import Section from "./Section";
 
 type Job = {
   role: string;
@@ -41,25 +41,32 @@ const experiences: Job[] = [
     role: "software engineer",
     company: "QCC",
     period: "sept 2024 to feb 2025",
-    stack: ["react.js", "javascript", "python"],
+    stack: [
+      "react.js",
+      "javascript",
+      "python",
+    ],
   },
   {
     role: "software engineer intern",
     company: "CMC Global",
     period: "jan 2023 to feb 2023",
-    stack: ["java", "selenium"],
+    stack: [
+      "java",
+      "selenium",
+    ],
   },
 ];
 
 const Experience = () => (
-  <CollapsibleSection title="EXPERIENCE">
+  <Section title="EXPERIENCE">
     <div className="flex flex-col space-y-2 w-full">
       {experiences.map(({ role, company, period, stack }) => (
         <div key={`${role}-${company}`} className="flex flex-col">
           <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center">
             <h3 className="font-secondary text-sm sm:text-base tracking-wide text-stone-800 dark:text-stone-200">
               {role} at{" "}
-              <span className="underline underline-offset-4 decoration-accent hover:text-accent">
+              <span className="keyword">
                 {company}
               </span>
             </h3>
@@ -73,7 +80,7 @@ const Experience = () => (
         </div>
       ))}
     </div>
-  </CollapsibleSection>
+  </Section>
 );
 
 export default Experience;

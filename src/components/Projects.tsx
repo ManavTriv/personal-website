@@ -1,4 +1,4 @@
-import CollapsibleSection from "./CollapsibleSection";
+import Section from "./Section";
 
 type Project = {
   name: string;
@@ -30,7 +30,7 @@ const projects: Project[] = [
 ];
 
 const Projects = () => (
-  <CollapsibleSection title="PROJECTS">
+  <Section title="PROJECTS">
     <div className="flex flex-col space-y-2 w-full">
       {projects.map(({ name, stack, link }) => (
         <div key={name} className="flex flex-col">
@@ -42,7 +42,7 @@ const Projects = () => (
               href={link}
               target="_blank"
               rel="noopener noreferrer"
-              className="font-secondary text-sm sm:text-base underline underline-offset-4 decoration-accent text-stone-600 dark:text-stone-300 hover:text-accent"
+              className="font-secondary text-sm sm:text-base keyword text-stone-600 dark:text-stone-300"
             >
               github
             </a>
@@ -53,7 +53,7 @@ const Projects = () => (
         </div>
       ))}
     </div>
-  </CollapsibleSection>
+  </Section>
 );
 
 export default Projects;

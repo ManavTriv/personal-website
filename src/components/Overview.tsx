@@ -24,8 +24,16 @@ const navItems: NavItem[] = [
     link: "https://github.com/ManavTriv",
     external: true,
   },
-  { label: "email", icon: Mail, link: "mailto:trivedimanav2003@gmail.com" },
-  { label: "resume", icon: Page, link: "/resume.pdf" },
+  {
+    label: "email",
+    icon: Mail,
+    link: "mailto:trivedimanav2003@gmail.com",
+  },
+  {
+    label: "resume",
+    icon: Page,
+    link: "/resume.pdf",
+  },
 ];
 
 const cat = [
@@ -37,7 +45,7 @@ const cat = [
 
 const Separator = () => (
   <span className="text-xs text-stone-400 dark:text-stone-500 select-none">
-    ·
+    /
   </span>
 );
 

@@ -1,4 +1,4 @@
-import CollapsibleSection from "./CollapsibleSection";
+import Section from "./Section";
 
 type Degree = {
   degree: string;
@@ -23,14 +23,14 @@ const education: Degree[] = [
 ];
 
 const Education = () => (
-  <CollapsibleSection title="EDUCATION">
+  <Section title="EDUCATION">
     <div className="flex flex-col space-y-2 w-full">
       {education.map(({ degree, institution, period, focus }) => (
         <div key={`${degree}-${institution}`} className="flex flex-col">
           <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center">
             <h3 className="font-secondary text-sm sm:text-base tracking-wide text-stone-800 dark:text-stone-200">
               {degree} at{" "}
-              <span className="underline underline-offset-4 decoration-accent hover:text-accent">
+              <span className="keyword">
                 {institution}
               </span>
             </h3>
@@ -44,7 +44,7 @@ const Education = () => (
         </div>
       ))}
     </div>
-  </CollapsibleSection>
+  </Section>
 );
 
 export default Education;
