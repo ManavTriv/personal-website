@@ -1,4 +1,3 @@
-import "../styles/Home.css";
 import Overview from "../components/Overview";
 import About from "../components/About";
 import Education from "../components/Education";

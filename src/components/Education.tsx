@@ -1,6 +1,13 @@
 import CollapsibleSection from "./CollapsibleSection";
 
-const education = [
+type Degree = {
+  degree: string;
+  institution: string;
+  period: string;
+  focus: string;
+};
+
+const education: Degree[] = [
   {
     degree: "bachelor of engineering (hons)",
     institution: "the university of queensland",
@@ -21,12 +28,12 @@ const Education = () => (
       {education.map(({ degree, institution, period, focus }) => (
         <div key={`${degree}-${institution}`} className="flex flex-col">
           <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center">
-            <h2 className="font-secondary text-sm sm:text-base tracking-wide text-stone-800 dark:text-stone-200">
+            <h3 className="font-secondary text-sm sm:text-base tracking-wide text-stone-800 dark:text-stone-200">
               {degree} at{" "}
-              <span className="underline underline-offset-4 decoration-accent hover:text-accent cursor-pointer">
+              <span className="underline underline-offset-4 decoration-accent hover:text-accent">
                 {institution}
               </span>
-            </h2>
+            </h3>
             <p className="font-secondary text-xs sm:text-sm tracking-wide text-stone-600 dark:text-stone-300">
               {period}
             </p>

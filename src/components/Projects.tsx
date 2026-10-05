@@ -1,6 +1,12 @@
 import CollapsibleSection from "./CollapsibleSection";
 
-const projects = [
+type Project = {
+  name: string;
+  stack: string[];
+  link: string;
+};
+
+const projects: Project[] = [
   {
     name: "qsm-ci platform",
     stack: ["javascript", "react", "github actions", "back4app"],
@@ -29,9 +35,9 @@ const Projects = () => (
       {projects.map(({ name, stack, link }) => (
         <div key={name} className="flex flex-col">
           <div className="flex flex-row justify-between items-center">
-            <h2 className="font-secondary text-sm sm:text-base tracking-wide text-stone-800 dark:text-stone-200">
+            <h3 className="font-secondary text-sm sm:text-base tracking-wide text-stone-800 dark:text-stone-200">
               {name}
-            </h2>
+            </h3>
             <a
               href={link}
               target="_blank"
