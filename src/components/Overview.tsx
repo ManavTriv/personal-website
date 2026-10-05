@@ -79,7 +79,9 @@ const Overview = () => {
         </div>
       </div>
 
-      <Cat asleep={theme === "dark"} onToggle={toggleTheme} />
+      <div className="h-0 flex items-center">
+        <Cat asleep={theme === "dark"} onToggle={toggleTheme} />
+      </div>
     </div>
   );
 };

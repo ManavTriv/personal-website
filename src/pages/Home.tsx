@@ -11,8 +11,8 @@ const Home = () => {
       <div className="flex flex-col space-y-10 items-center max-w-2xl w-full mx-10 py-10">
         <Overview />
         <About />
-        <Education />
         <Experience />
+        <Education />
         <Projects />
         <Footer />
       </div>

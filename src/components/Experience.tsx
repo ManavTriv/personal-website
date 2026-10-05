@@ -64,7 +64,7 @@ const Experience = () => (
       {experiences.map(({ role, company, period, stack }) => (
         <div key={`${role}-${company}`} className="flex flex-col">
           <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center">
-            <h3 className="text-sm sm:text-base text-stone-800 dark:text-stone-200">
+            <h3 className="mb-1 sm:mb-0 text-sm sm:text-base text-stone-800 dark:text-stone-200">
               {role} at{" "}
               <span className="keyword">
                 {company}

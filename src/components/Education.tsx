@@ -28,7 +28,7 @@ const Education = () => (
       {education.map(({ degree, institution, period, focus }) => (
         <div key={`${degree}-${institution}`} className="flex flex-col">
           <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center">
-            <h3 className="text-sm sm:text-base text-stone-800 dark:text-stone-200">
+            <h3 className="mb-1 sm:mb-0 text-sm sm:text-base text-stone-800 dark:text-stone-200">
               {degree} at{" "}
               <span className="keyword">
                 {institution}
