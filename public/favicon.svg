@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32">
+  <style>
+    .head { fill: #44403c; }
+    .eye { fill: #fafaf9; }
+    @media (prefers-color-scheme: dark) {
+      .head { fill: #e7e5e4; }
+      .eye { fill: #1c1917; }
+    }
+  </style>
+  <path class="head" d="M4 6 L11 11 Q16 9.5 21 11 L28 6 L27 17 Q27 28 16 28 Q5 28 5 17 Z" />
+  <ellipse class="eye" cx="11.5" cy="18" rx="1.7" ry="2.2" />
+  <ellipse class="eye" cx="20.5" cy="18" rx="1.7" ry="2.2" />
+</svg>

@@ -23,22 +23,22 @@ const education: Degree[] = [
 ];
 
 const Education = () => (
-  <Section title="EDUCATION">
-    <div className="flex flex-col space-y-2 w-full">
+  <Section title="education">
+    <div className="flex flex-col space-y-3 sm:space-y-2 w-full">
       {education.map(({ degree, institution, period, focus }) => (
         <div key={`${degree}-${institution}`} className="flex flex-col">
           <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center">
-            <h3 className="font-secondary text-sm sm:text-base tracking-wide text-stone-800 dark:text-stone-200">
+            <h3 className="text-sm sm:text-base text-stone-800 dark:text-stone-200">
               {degree} at{" "}
               <span className="keyword">
                 {institution}
               </span>
             </h3>
-            <p className="font-secondary text-xs sm:text-sm tracking-wide text-stone-600 dark:text-stone-300">
+            <p className="text-xs sm:text-sm tabular-nums text-stone-500 dark:text-stone-400">
               {period}
             </p>
           </div>
-          <p className="font-secondary text-xs tracking-wide text-stone-500 dark:text-stone-400">
+          <p className="text-xs sm:text-sm text-stone-500 dark:text-stone-400">
             {focus}
           </p>
         </div>

@@ -7,8 +7,8 @@ import Footer from "../components/Footer";
 
 const Home = () => {
   return (
-    <div className="flex items-center justify-center min-h-screen">
-      <div className="flex flex-col space-y-10 items-center min-h-screen max-w-2xl w-full mx-10 py-10">
+    <div className="flex justify-center">
+      <div className="flex flex-col space-y-10 items-center max-w-2xl w-full mx-10 py-10">
         <Overview />
         <About />
         <Education />

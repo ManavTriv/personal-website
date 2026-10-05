@@ -10,7 +10,7 @@ type Job = {
 const experiences: Job[] = [
   {
     role: "software engineer",
-    company: "ANZ",
+    company: "anz",
     period: "feb 2026 to present",
     stack: [
       "typescript",
@@ -25,7 +25,7 @@ const experiences: Job[] = [
   },
   {
     role: "software engineer intern",
-    company: "ANZ",
+    company: "anz",
     period: "nov 2024 to feb 2026",
     stack: [
       "golang",
@@ -39,7 +39,7 @@ const experiences: Job[] = [
   },
   {
     role: "software engineer",
-    company: "QCC",
+    company: "qcc",
     period: "sept 2024 to feb 2025",
     stack: [
       "react.js",
@@ -49,7 +49,7 @@ const experiences: Job[] = [
   },
   {
     role: "software engineer intern",
-    company: "CMC Global",
+    company: "cmc global",
     period: "jan 2023 to feb 2023",
     stack: [
       "java",
@@ -59,22 +59,22 @@ const experiences: Job[] = [
 ];
 
 const Experience = () => (
-  <Section title="EXPERIENCE">
-    <div className="flex flex-col space-y-2 w-full">
+  <Section title="experience">
+    <div className="flex flex-col space-y-3 sm:space-y-2 w-full">
       {experiences.map(({ role, company, period, stack }) => (
         <div key={`${role}-${company}`} className="flex flex-col">
           <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center">
-            <h3 className="font-secondary text-sm sm:text-base tracking-wide text-stone-800 dark:text-stone-200">
+            <h3 className="text-sm sm:text-base text-stone-800 dark:text-stone-200">
               {role} at{" "}
               <span className="keyword">
                 {company}
               </span>
             </h3>
-            <p className="font-secondary text-xs sm:text-sm tracking-wide text-stone-600 dark:text-stone-300">
+            <p className="text-xs sm:text-sm tabular-nums text-stone-500 dark:text-stone-400">
               {period}
             </p>
           </div>
-          <p className="font-secondary text-xs tracking-wide text-stone-500 dark:text-stone-400">
+          <p className="text-xs sm:text-sm text-stone-500 dark:text-stone-400">
             {stack.join(", ")}
           </p>
         </div>

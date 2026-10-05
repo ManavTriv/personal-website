@@ -5,9 +5,7 @@ type Theme = "light" | "dark";
 
 export function useTheme() {
   const [theme, setTheme] = useState<Theme>(() =>
-    window.matchMedia("(prefers-color-scheme: dark)").matches
-      ? "dark"
-      : "light",
+    document.documentElement.classList.contains("dark") ? "dark" : "light",
   );
 
   useLayoutEffect(() => {
@@ -16,7 +14,10 @@ export function useTheme() {
 
   const toggleTheme = () => {
     const next = theme === "light" ? "dark" : "light";
-    const update = () => flushSync(() => setTheme(next));
+    const update = () => {
+      flushSync(() => setTheme(next));
+      localStorage.setItem("theme", next);
+    };
 
     if ("startViewTransition" in document) {
       document.startViewTransition(update);

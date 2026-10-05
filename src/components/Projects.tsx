@@ -30,24 +30,24 @@ const projects: Project[] = [
 ];
 
 const Projects = () => (
-  <Section title="PROJECTS">
-    <div className="flex flex-col space-y-2 w-full">
+  <Section title="projects">
+    <div className="flex flex-col space-y-3 sm:space-y-2 w-full">
       {projects.map(({ name, stack, link }) => (
         <div key={name} className="flex flex-col">
           <div className="flex flex-row justify-between items-center">
-            <h3 className="font-secondary text-sm sm:text-base tracking-wide text-stone-800 dark:text-stone-200">
+            <h3 className="text-sm sm:text-base text-stone-800 dark:text-stone-200">
               {name}
             </h3>
             <a
               href={link}
               target="_blank"
               rel="noopener noreferrer"
-              className="font-secondary text-sm sm:text-base keyword text-stone-600 dark:text-stone-300"
+              className="text-xs sm:text-sm keyword text-stone-500 dark:text-stone-400"
             >
               github
             </a>
           </div>
-          <p className="font-secondary text-xs tracking-wide text-stone-500 dark:text-stone-400">
+          <p className="text-xs sm:text-sm text-stone-500 dark:text-stone-400">
             {stack.join(", ")}
           </p>
         </div>

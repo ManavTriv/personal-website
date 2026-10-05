@@ -1,13 +1,9 @@
 import { Fragment } from "react";
-import { Github, HalfMoon, Linkedin, Mail, Page, SunLight } from "iconoir-react";
 import { useTheme } from "../hooks/useTheme";
 import Cat from "./Cat";
 
-type Icon = typeof Github;
-
 type NavItem = {
   label: string;
-  icon: Icon;
   link: string;
   external?: boolean;
 };
@@ -15,69 +11,57 @@ type NavItem = {
 const navItems: NavItem[] = [
   {
     label: "linkedin",
-    icon: Linkedin,
     link: "https://au.linkedin.com/in/manav-trivedi-691688296",
     external: true,
   },
   {
     label: "github",
-    icon: Github,
     link: "https://github.com/ManavTriv",
     external: true,
   },
   {
     label: "email",
-    icon: Mail,
     link: "mailto:trivedimanav2003@gmail.com",
   },
   {
     label: "resume",
-    icon: Page,
     link: "/resume.pdf",
   },
 ];
 
 const Separator = () => (
-  <span className="text-xs text-stone-400 dark:text-stone-500 select-none">
+  <span className="hidden sm:inline text-xs text-stone-400 dark:text-stone-500 select-none">
     /
   </span>
 );
 
 const Overview = () => {
   const { theme, toggleTheme } = useTheme();
-  const ThemeIcon = theme === "dark" ? SunLight : HalfMoon;
 
   return (
-    <div className="flex flex-row justify-between items-center w-full">
-      <div className="flex flex-col gap-1">
-        <h1 className="font-secondary text-sm sm:text-base font-semibold tracking-wide text-accent hover:opacity-80">
-          MANAV TRIVEDI
+    <div className="flex flex-row justify-between items-center gap-4 w-full">
+      <div className="flex flex-col gap-1 min-w-0">
+        <h1 className="text-sm sm:text-base font-semibold text-accent">
+          manav trivedi
         </h1>
-        <div className="flex flex-row items-center gap-1.5">
-          {navItems.map(({ label, icon: NavIcon, link, external }) => (
+        <div className="flex flex-row flex-wrap items-center gap-x-3 sm:gap-x-1.5 gap-y-0.5">
+          {navItems.map(({ label, link, external }, i) => (
             <Fragment key={label}>
+              {i > 0 && <Separator />}
               <a
                 href={link}
                 target={external ? "_blank" : undefined}
                 rel={external ? "noopener noreferrer" : undefined}
-                className="text-stone-800 dark:text-stone-200 hover:text-accent"
+                className="keyword text-xs sm:text-sm text-stone-600 dark:text-stone-300"
               >
-                <NavIcon className="w-4 h-4" />
+                {label}
               </a>
-              <Separator />
             </Fragment>
           ))}
-          <button
-            type="button"
-            onClick={toggleTheme}
-            className="text-stone-800 dark:text-stone-200 hover:text-accent cursor-pointer"
-          >
-            <ThemeIcon className="w-4 h-4" />
-          </button>
         </div>
       </div>
 
-      <Cat asleep={theme === "dark"} />
+      <Cat asleep={theme === "dark"} onToggle={toggleTheme} />
     </div>
   );
 };

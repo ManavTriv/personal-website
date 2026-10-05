@@ -7,7 +7,7 @@ type SectionProps = {
 
 const Section = ({ title, children }: SectionProps) => (
   <section className="flex flex-col space-y-3 w-full">
-    <h2 className="font-secondary text-sm sm:text-base font-semibold tracking-wide text-accent">
+    <h2 className="text-sm sm:text-base font-semibold text-accent">
       {title}
     </h2>
     {children}
