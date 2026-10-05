@@ -30,7 +30,7 @@ body {
     )
     0 100% / 8px 2px repeat-x;
   padding-bottom: 2px;
-  @apply hover:text-accent;
+  @apply hover:text-accent active:text-accent;
 }
 
 @keyframes drift {
