@@ -36,7 +36,12 @@ body {
     )
     0 100% / 8px 2px repeat-x;
   padding-bottom: 2px;
+  transition: color 200ms ease-in-out;
   @apply hover:text-accent active:text-accent;
+}
+
+.no-transitions .keyword {
+  transition: none;
 }
 
 @keyframes drift {

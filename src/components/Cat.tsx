@@ -17,10 +17,10 @@ const Cat = ({ asleep, onToggle }: CatProps) => {
   const eyes = asleep ? "-   -" : purring ? "^   ^" : "o   o";
 
   const cat = [
-    " /\\___/\\",
-    `( ${eyes} )___`,
-    "(  =^=  )   \\__",
-    " (__)(__)____)~",
+    "  /\\_____/\\",
+    ` (  ${eyes}  )_____`,
+    " (   =^=   )      \\",
+    "  (__)  (__)_______)~",
   ].join("\n");
 
   return (

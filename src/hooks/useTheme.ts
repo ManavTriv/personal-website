@@ -15,7 +15,11 @@ export function useTheme() {
   const toggleTheme = () => {
     const next = theme === "light" ? "dark" : "light";
     const update = () => {
+      const root = document.documentElement;
+      root.classList.add("no-transitions");
       flushSync(() => setTheme(next));
+      void root.offsetWidth;
+      root.classList.remove("no-transitions");
       localStorage.setItem("theme", next);
     };
 
