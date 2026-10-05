@@ -33,6 +33,20 @@ body {
   @apply hover:text-accent;
 }
 
+@keyframes drift {
+  from {
+    opacity: 0;
+    translate: 0 2px;
+  }
+  30% {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+    translate: 4px -10px;
+  }
+}
+
 ::view-transition-old(root),
 ::view-transition-new(root) {
   animation-duration: 450ms;

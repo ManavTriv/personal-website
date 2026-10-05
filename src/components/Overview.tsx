@@ -1,6 +1,7 @@
 import { Fragment } from "react";
 import { Github, HalfMoon, Linkedin, Mail, Page, SunLight } from "iconoir-react";
 import { useTheme } from "../hooks/useTheme";
+import Cat from "./Cat";
 
 type Icon = typeof Github;
 
@@ -36,13 +37,6 @@ const navItems: NavItem[] = [
   },
 ];
 
-const cat = [
-  "   |\\      _,,,---,,_",
-  "   /,`.-'`'    -.  ;-;;,_",
-  "  |,4-  ) )-,_..;\\ (  `'-'",
-  " '---''(_/--'  `-'\\_)",
-].join("\n");
-
 const Separator = () => (
   <span className="text-xs text-stone-400 dark:text-stone-500 select-none">
     /
@@ -54,7 +48,7 @@ const Overview = () => {
   const ThemeIcon = theme === "dark" ? SunLight : HalfMoon;
 
   return (
-    <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center w-full gap-4 sm:gap-0">
+    <div className="flex flex-row justify-between items-center w-full">
       <div className="flex flex-col gap-1">
         <h1 className="font-secondary text-sm sm:text-base font-semibold tracking-wide text-accent hover:opacity-80">
           MANAV TRIVEDI
@@ -83,9 +77,7 @@ const Overview = () => {
         </div>
       </div>
 
-      <pre className="font-mono text-xs leading-tight text-stone-400 dark:text-stone-500 select-none">
-        {cat}
-      </pre>
+      <Cat asleep={theme === "dark"} />
     </div>
   );
 };
