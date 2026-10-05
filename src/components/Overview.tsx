@@ -44,7 +44,7 @@ const Overview = () => {
         <h1 className="text-sm sm:text-base font-semibold text-accent">
           manav trivedi
         </h1>
-        <div className="flex flex-row flex-wrap items-center gap-x-3 sm:gap-x-1.5 gap-y-0.5">
+        <div className="grid grid-cols-2 w-fit gap-x-3 gap-y-0.5 sm:flex sm:flex-row sm:flex-wrap sm:items-center sm:gap-x-1.5">
           {navItems.map(({ label, link, external }, i) => (
             <Fragment key={label}>
               {i > 0 && <Separator />}

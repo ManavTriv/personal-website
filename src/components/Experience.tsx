@@ -70,7 +70,7 @@ const Experience = () => (
                 {company}
               </span>
             </h3>
-            <p className="text-xs sm:text-sm tabular-nums text-stone-500 dark:text-stone-400">
+            <p className="text-xs sm:text-sm italic sm:not-italic tabular-nums text-stone-500 dark:text-stone-400">
               {period}
             </p>
           </div>
